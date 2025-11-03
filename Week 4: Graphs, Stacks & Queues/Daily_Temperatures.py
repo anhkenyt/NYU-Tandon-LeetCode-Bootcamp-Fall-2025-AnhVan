@@ -1,0 +1,14 @@
+class Solution:
+    def dailyTemperatures(self, temperatures):
+        n = len(temperatures)
+        answer = [0] * n
+        stack = []  # stores indices of days
+
+        for i, temp in enumerate(temperatures):
+            # Resolve previous colder days
+            while stack and temp > temperatures[stack[-1]]:
+                prev_day = stack.pop()
+                answer[prev_day] = i - prev_day
+            stack.append(i)
+
+        return answer
